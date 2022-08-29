@@ -1,0 +1,41 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches: [ main ]
+
+
+jobs:
+  tests-run:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.15.0'
+      - name: Install dependencies
+        run: npm ci    
+      - name: Install Dependencies
+        run: npm install
+      - name: run test
+        run: npm run cy_staging_run
+      - name: Generate report
+        if: always()
+        run: npm run cy_generate_report
+      - name: Upload artifact cucumber-report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cucumber-report
+          path: ./reports/cucumber-htmlreport
+          retention-days: 5
+      - name: Deploy to pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: reports/cucumber-htmlreport/        
+        
+            

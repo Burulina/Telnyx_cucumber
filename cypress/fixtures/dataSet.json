@@ -1,0 +1,16 @@
+{
+  "valid": {
+    "email": "work@gmail.com",
+    "name": "Volodymyr",
+    "lastname": "Prihodko",
+    "password": "uuiyo124eeretertretrterFF@",
+    "company": "Imp",
+    "website": "https://www.google.com/",
+    "phone": "13254678"
+  },
+  "invalid": {
+    "email": "work"
+  },
+  "search": "Pricing",
+  "AddInfo": "Hello"
+}
