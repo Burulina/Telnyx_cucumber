@@ -1,7 +1,8 @@
 import {Given, When, Then, And} from '@badeball/cypress-cucumber-preprocessor';
-import { commonMethods } from "../../pageObjects/common.methods";
-import { homePage } from "../../pageObjects/home.page.js";
-import { contactUsPage } from "../../pageObjects/contactUs.page";
+
+const commonMethods = require ('../../pageObjects/common.methods');
+const homePage = require ('../../pageObjects/home.page.js');
+const contactUsPage = require ('../../pageObjects/contactUs.page.js');
 
 let data;
   before(() => {
@@ -12,7 +13,7 @@ let data;
 
 Given ('A User opens a telnyx.com main page', () => {
     cy.visit('https://telnyx.com/');
-    commonMethods.checkBaseUrl();
+    cy.url().should('eq', 'https://telnyx.com/');
 });
 
 And ('If the cookies window is opened User closes it', () => {
@@ -24,8 +25,8 @@ When ('A User clicks the "Talk to an expert" button', () => {
 });
 
 And ('A User checks the "Contact Us" page is opened', () => {
-    contactUsPage.checkUrlInclude('/contact-us');
-    contactUsPage.checkContactUsPageHeading('Talk to an expert');
+    cy.url().should('include', '/contact-us');
+    contactUsPage.getContactUsPageHeading().should('be.visible').and('contain.text', 'Talk to an expert');
 });
 
 Then ('A User fills the all mandatory input fields with valid credentials', () => {

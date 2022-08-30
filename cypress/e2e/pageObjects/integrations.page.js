@@ -1,4 +1,4 @@
-import { CommonMethods } from "./common.methods";
+const commonMethods = require ('./common.methods');
 
 // Selectors
 const exploreMarketButton = 'div>[href="https://marketplace.telnyx.com"]';
@@ -13,44 +13,40 @@ const useCaseDropdown = '#Use_Case_Form__c';
 const becomeBetaTesterForm = '#become-a-beta-tester';
 const emailErrorMessage = '#ValidMsgEmail';
 
-export class IntegrationsPage extends CommonMethods {
+class IntegrationsPage {
 
-    constructor() {
-        super();
+    getBetaTesterFormHeading () {
+        return cy.get(betaTesterFormHeading);
+    }
+    
+    getEmailErrorMessage () {
+        return cy.get(emailErrorMessage);
     }
 
     fillInputs (firstname, lastname, email, website, industry) {
-        super.typeInput(firstNameInput, firstname);
-        super.typeInput(lastNameInput, lastname);
-        super.typeInput(emailInput, email);
-        super.typeInput(websiteInput, website);
-        super.typeInput(industryInput, industry);
+        commonMethods.typeInput(firstNameInput, firstname);
+        commonMethods.typeInput(lastNameInput, lastname);
+        commonMethods.typeInput(emailInput, email);
+        commonMethods.typeInput(websiteInput, website);
+        commonMethods.typeInput(industryInput, industry);
     }
 
     clickSubmitButton() {
-        super.clickElem(submitButton);
+        commonMethods.clickElem(submitButton);
     }
 
     clickExploreMarketButton() {
-        super.clickDoubleElem(exploreMarketButton, 0);
-    }
-
-    checkBetaTesterFormHeading (text){
-        super.checkVisibilityContainText(betaTesterFormHeading, text);
-    }
-
-    checkEmailErrorMessage (text){
-        super.checkVisibilityContainText(emailErrorMessage, text);
+        commonMethods.clickDoubleElem(exploreMarketButton, 0);
     }
 
     selectUseCaseDropdown (option) {
-        super.selectDropdown(useCaseDropdown, option);
+        commonMethods.selectDropdown(useCaseDropdown, option);
     }
 
     scrollBecomeBetaTesterForm () {
-        super.scrolltoElem(becomeBetaTesterForm);
+        commonMethods.scrolltoElem(becomeBetaTesterForm);
     }    
 
 }
 
-export const integrationsPage = new IntegrationsPage();
+module.exports = new IntegrationsPage ();

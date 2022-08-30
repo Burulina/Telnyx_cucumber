@@ -1,4 +1,4 @@
-import { CommonMethods } from "./common.methods";
+const commonMethods = require ('./common.methods');
 
 // Selectors
 const firstNameInput = '#FirstName';
@@ -11,33 +11,29 @@ const becomePartnerFormHeading = 'section>h3';
 const partnerTypeDropdown = '#Partner_Type__c';
 const becomePartnerForm = '#become-a-partner';
 
-export class PartnershipsPage extends CommonMethods {
+class PartnershipsPage {
 
-    constructor() {
-        super();
+    getBecomePartnerFormHeading () {
+        return cy.get(becomePartnerFormHeading);
     }
 
     fillInputs (firstname, lastname, company, email, phone, addInfo) {
-        super.typeInput(firstNameInput, firstname);
-        super.typeInput(lastNameInput, lastname);
-        super.typeInput(companyInput, company);
-        super.typeInput(emailInput, email);
-        super.typeInput(phoneNumberInput, phone);
-        super.typeInput(addInfoTextForm, addInfo);
-    }
-
-    checkBecomePartnerFormHeading (text){
-        super.checkVisibilityContainText(becomePartnerFormHeading, text);
+        commonMethods.typeInput(firstNameInput, firstname);
+        commonMethods.typeInput(lastNameInput, lastname);
+        commonMethods.typeInput(companyInput, company);
+        commonMethods.typeInput(emailInput, email);
+        commonMethods.typeInput(phoneNumberInput, phone);
+        commonMethods.typeInput(addInfoTextForm, addInfo);
     }
 
     selectPartnerTypeDropdown (option) {
-        super.selectDropdown(partnerTypeDropdown, option);
+        commonMethods.selectDropdown(partnerTypeDropdown, option);
     }
   
     scrollBecomePartnerForm () {
-        super.scrolltoElem(becomePartnerForm);
+        commonMethods.scrolltoElem(becomePartnerForm);
     } 
 
 }
 
-export const partnershipsPage = new PartnershipsPage();
+module.exports = new PartnershipsPage ();

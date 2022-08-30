@@ -1,11 +1,12 @@
 import {Given, When, Then, And} from '@badeball/cypress-cucumber-preprocessor';
-import { commonMethods } from "../../pageObjects/common.methods";
-import { homePage } from "../../pageObjects/home.page.js";
-import { signUpPage } from "../../pageObjects/signUp.page";
+
+const commonMethods = require ('../../pageObjects/common.methods');
+const homePage = require ('../../pageObjects/home.page.js');
+const signUpPage = require ('../../pageObjects/signUp.page.js');
 
 Given ('A User opens a telnyx.com main page', () => {
     cy.visit('https://telnyx.com/');
-    commonMethods.checkBaseUrl();
+    cy.url().should('eq', 'https://telnyx.com/');
 });
 
 And ('If the cookies window is opened User closes it', () => {
@@ -17,8 +18,8 @@ When ('A User clicks on the "SighUp" link in the footer', () => {
 });
 
 And ('A User checks the "Sign up" page is opened', () => {
-    signUpPage.checkUrlInclude ('/sign-up');
-    signUpPage.checkSinUpFormHeading('Create a free account');
+    cy.url().should('include', '/sign-up');
+    signUpPage.getSinUpFormHeading().should('be.visible').and('contain.text', 'Create a free account');
 });
 
 And ('A User clicks the "Terms and conditions" link', () => {
@@ -26,5 +27,5 @@ And ('A User clicks the "Terms and conditions" link', () => {
 });
 
 Then ('A User checks the "Terms and Conditions" page is opened', () => {
-    signUpPage.checkUrlInclude ('terms-and-conditions-of-service');
+    cy.url().should('include', 'terms-and-conditions-of-service');
 });

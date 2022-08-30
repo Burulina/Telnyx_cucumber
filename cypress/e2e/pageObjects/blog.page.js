@@ -1,4 +1,4 @@
-import { CommonMethods } from "./common.methods";
+const commonMethods = require ('./common.methods');
 
 // Selectors
 const newProdFeaturesButton = 'div[id="filter-by-content"]~ul>li:nth-child(1)>button';
@@ -7,30 +7,26 @@ const searchResultHeading = '[id="articles"]>div[class*="Text"]';
 const searchInput = '#search';
 const newsArticlesTopics = 'header>span';
 
-export class BlogPage extends CommonMethods {
+class BlogPage {
 
-    constructor() {
-        super();
+    getBlogPageHeading () {
+        return cy.get(blogPageHeading);
+    }
+
+    getNewProdFeaturesButton () {
+        return cy.get(newProdFeaturesButton);
+    }
+
+    getSearchResultHeading () {
+        return cy.get(searchResultHeading);
     }
 
     fillSearchInput (text) {
-        super.typeInput(searchInput, text);
+        commonMethods.typeInput(searchInput, text);
     }
 
     clickNewProdFeaturesButton() {
-        super.clickElem(newProdFeaturesButton);
-    }
-
-    checkBlogPageHeading (text) {
-        super.checkVisibilityContainText(blogPageHeading, text);
-    }
-
-    checkSearchResult (text) {
-        super.checkVisibilityContainText(searchResultHeading, text);
-    }
-    
-    checkNewProdFeaturesButton (attr, value) {
-        cy.get(newProdFeaturesButton).should('have.attr', attr, value);
+        commonMethods.clickElem(newProdFeaturesButton);
     }
 
     checkFilterContent (data) {
@@ -42,4 +38,4 @@ export class BlogPage extends CommonMethods {
  
 }
 
-export const blogPage = new BlogPage();
+module.exports = new BlogPage ();

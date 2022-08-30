@@ -1,4 +1,4 @@
-import { CommonMethods } from "./common.methods";
+const commonMethods = require ('./common.methods');
 
 // Selectors
 const mesaggingSidebarItem = '[id="docs-desktop-sidebar"] [href="/docs/v2/messaging"]';
@@ -8,36 +8,32 @@ const phoneHeading = '#phone-numbers';
 const apiDocVersionHeading = '#telnyx-api-v1-documentation';
 const apiButton = '[id="docs-desktop-sidebar"] div>button';
 
-export class DevelopersPage extends CommonMethods {
+class DevelopersPage {
 
-    constructor() {
-        super();
+    getApiDocVersionHeading () {
+        return cy.get(apiDocVersionHeading);
+    }
+
+    getMessagingHeading () {
+        return cy.get(messagingHeading);
+    }
+
+    getPhoneHeading () {
+        return cy.get(phoneHeading);
     }
 
     clickMesaggingSidebarItem() {
-        super.clickElem(mesaggingSidebarItem);
+        commonMethods.clickElem(mesaggingSidebarItem);
     }
       
     clickPhoneNumbersSidebarItem() {
-        super.clickElem(phoneNumbersSidebarItem);
+        commonMethods.clickElem(phoneNumbersSidebarItem);
     }
 
     clickApiV1Button() {
-        super.clickDoubleElem(apiButton, 0);
-    }
-
-    checkMessagingHeading(text) {
-        super.checkVisibilityContainText(messagingHeading, text);
-    }
-
-    checkPhoneHeading(text) {
-        super.checkVisibilityContainText(phoneHeading, text);
-    }
-
-    checkApiDocVersionHeading(text) {
-        super.checkVisibilityContainText(apiDocVersionHeading, text);
+        commonMethods.clickDoubleElem(apiButton, 0);
     }
 
 }
 
-export const developersPage = new DevelopersPage();
+module.exports = new DevelopersPage();

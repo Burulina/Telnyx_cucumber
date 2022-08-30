@@ -1,4 +1,4 @@
-import { CommonMethods } from "./common.methods";
+const commonMethods = require ('./common.methods');
 
 // Selectors
 const tryForFreeButton = 'button[type="submit"]';
@@ -17,68 +17,65 @@ const cookiesPolicyLink = 'a[href="/cookie-policy"]';
 const signUpLink = 'footer [href="/sign-up"]';
 
 
-export class HomePage extends CommonMethods {
+class HomePage {
 
-    constructor() {
-        super();
-    };
+    getclickToCallDialog () {
+        return cy.get(clickToCallDialog);
+    }
+
+    getcallSalesButton () {
+        return cy.get(callSalesButton);
+    }
 
     fillEmailInput(text) {
-        super.typeInput(emailInput, text);
+        commonMethods.typeInput(emailInput, text);
     }
     
     clickTryForFreeButton() {
-        super.clickElem(tryForFreeButton);
+        commonMethods.clickElem(tryForFreeButton);
     }
 
     clickTalkExpertButton() {
-        super.clickElem(talkExpertButton);
+        commonMethods.clickElem(talkExpertButton);
     }
 
     clickSignUpLink() {
-        super.clickElem(signUpLink);
+        commonMethods.clickElem(signUpLink);
     }
 
     clickCallingOverseasLink() {
-    super.clickHoverElem(callingOverseasLink);
+        commonMethods.clickHoverElem(callingOverseasLink);
     }
 
     clickCallUsLink() {
-        super.clickElem(callUsLink);
+        commonMethods.clickElem(callUsLink);
     }
 
     clickLinkedinLink() {
-        super.clickElemNewTab(linkedinLink);
+        commonMethods.clickElemNewTab(linkedinLink);
     }
 
     clickCookiesPolicyLink() {
-        super.clickElem(cookiesPolicyLink);
+        commonMethods.clickElem(cookiesPolicyLink);
     }
     
     clickIntegrationsSubmenuItem() {
-        super.clickHoverElem(integrationsSubmenuItem);
+        commonMethods.clickHoverElem(integrationsSubmenuItem);
     }
 
     clickBlogSubmenuItem() {
-        super.clickHoverElem(blogSubmenuItem);
+        commonMethods.clickHoverElem(blogSubmenuItem);
     }
 
     clickPartnersSubmenuItem() {
-        super.clickHoverElem(partnersSubmenuItem);
+        commonMethods.clickHoverElem(partnersSubmenuItem);
     }
 
     clickDeveloperDocsSubmenuItem() {
-        super.clickHoverElem(developerDocsSubmenuItem);
+        commonMethods.clickHoverElem(developerDocsSubmenuItem);
     }
 
-    checkclickToCallDialog () {
-        super.checkVisibility(clickToCallDialog);
-    }
-
-    checkCallSalesButton (text) {
-        super.checkVisibilityContainText(callSalesButton, text);
-    }
 
 }
 
-export const homePage = new HomePage();
+module.exports = new HomePage ();

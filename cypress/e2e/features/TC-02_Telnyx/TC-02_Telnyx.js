@@ -1,11 +1,12 @@
 import {Given, When, Then, And} from '@badeball/cypress-cucumber-preprocessor';
-import { commonMethods } from "../../pageObjects/common.methods";
-import { homePage } from "../../pageObjects/home.page.js";
-import { contactUsPage } from '../../pageObjects/contactUs.page';
+
+const commonMethods = require ('../../pageObjects/common.methods');
+const homePage = require ('../../pageObjects/home.page.js');
+const contactUsPage = require ('../../pageObjects/contactUs.page.js');
 
 Given ('A User opens a telnyx.com main page', () => {
     cy.visit('https://telnyx.com/');
-    commonMethods.checkBaseUrl();
+    cy.url().should('eq', 'https://telnyx.com/');
 });
 
 And ('If the cookies window is opened User closes it', () => {
@@ -17,10 +18,11 @@ When ('A User clicks the "Talk to an expert" button in header', () => {
 });
 
 Then ('A User checks the redirection to page with list "Calling from overseas" phones', () => {
-    homePage.checkUrlInclude('/contact-us');
-    contactUsPage.checkListOverseasPhonesHeading('Calling from overseas?');
+    cy.url().should('include', '/contact-us');
+    contactUsPage.getListOverseasPhonesHeading().should('be.visible').and('contain.text', 'Calling from overseas?');
 });
 
-And ('A User check list of numbers in console', () => {
-    contactUsPage.checkOverseasPhonesList();
+And ('A User check list of phone numbers in console', () => {
+    contactUsPage.getOverseasPhonesList().should('be.visible').and('have.length',12);
+    contactUsPage.consoleLogOverseasPhonesList();
 });

@@ -1,11 +1,12 @@
 import {Given, When, Then, And} from '@badeball/cypress-cucumber-preprocessor';
-import { commonMethods } from "../../pageObjects/common.methods";
-import { homePage } from "../../pageObjects/home.page.js";
-import { blogPage } from "../../pageObjects/blog.page";
+
+const commonMethods = require ('../../pageObjects/common.methods');
+const homePage = require ('../../pageObjects/home.page.js');
+const blogPage = require ('../../pageObjects/blog.page.js');
 
 Given ('A User opens a telnyx.com main page', () => {
     cy.visit('https://telnyx.com/');
-    commonMethods.checkBaseUrl();
+    cy.url().should('eq', 'https://telnyx.com/');
 });
 
 And ('If the cookies window is opened User closes it', () => {
@@ -17,8 +18,8 @@ When ('A User clicks the "Blog" submenu item in the "Resources" menu item', () =
 });
 
 And ('A User checks the "Blog" page is opened', () => {
-    blogPage.checkUrlInclude('/resources');
-    blogPage.checkBlogPageHeading('Blog');
+    cy.url().should('include', '/resources');
+    blogPage.getBlogPageHeading().should('be.visible').and('contain.text', 'Blog');
 });
 
 And ('A User clicks the "New Products & Features" button', () => {
@@ -26,7 +27,7 @@ And ('A User clicks the "New Products & Features" button', () => {
 });
 
 Then ('A User checks the "New Products & Features" button is focused', () => {
-    blogPage.checkNewProdFeaturesButton('aria-checked', 'true');
+    blogPage.getNewProdFeaturesButton().should('have.attr', 'aria-checked', 'true');
 });
 
 And ('A User checks the results of filter by content', () => {

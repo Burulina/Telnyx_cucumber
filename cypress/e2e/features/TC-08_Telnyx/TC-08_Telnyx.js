@@ -1,7 +1,8 @@
 import {Given, When, Then, And} from '@badeball/cypress-cucumber-preprocessor';
-import { commonMethods } from "../../pageObjects/common.methods";
-import { homePage } from "../../pageObjects/home.page.js";
-import { integrationsPage } from "../../pageObjects/integrations.page";
+
+const commonMethods = require ('../../pageObjects/common.methods');
+const homePage = require ('../../pageObjects/home.page.js');
+const integrationsPage = require ('../../pageObjects/integrations.page.js');
 
 let data;
   before(() => {
@@ -12,7 +13,7 @@ let data;
 
 Given ('A User opens a telnyx.com main page', () => {
     cy.visit('https://telnyx.com/');
-    commonMethods.checkBaseUrl();
+    cy.url().should('eq', 'https://telnyx.com/');
 });
 
 And ('If the cookies window is opened User closes it', () => {
@@ -24,9 +25,9 @@ When ('A User clicks the "Integrations" submenu item in the "Company" menu item'
 });
 
 And ('A User checks the "Integrations" page with "Beta Tester" form is opened', () => {
-    integrationsPage.checkUrlInclude('/integrations');
+    cy.url().should('include', '/integrations');
     integrationsPage.scrollBecomeBetaTesterForm();
-    integrationsPage.checkBetaTesterFormHeading('Become a Beta Tester');
+    integrationsPage.getBetaTesterFormHeading().should('be.visible').and('contain.text', 'Become a Beta Tester');
 });
 
 Then ('A User fills the all mandatory input fields with valid credentials', () => {

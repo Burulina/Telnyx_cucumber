@@ -1,11 +1,11 @@
 import {Given, When, Then, And} from '@badeball/cypress-cucumber-preprocessor';
-import { commonMethods } from "../../pageObjects/common.methods";
-import { homePage } from "../../pageObjects/home.page.js";
-import { integrationsPage } from "../../pageObjects/integrations.page";
+const commonMethods = require ('../../pageObjects/common.methods');
+const homePage = require ('../../pageObjects/home.page.js');
+const integrationsPage = require ('../../pageObjects/integrations.page.js');
 
 Given ('A User opens a telnyx.com main page', () => {
     cy.visit('https://telnyx.com/');
-    commonMethods.checkBaseUrl();
+    cy.url().should('eq', 'https://telnyx.com/');
 });
 
 And ('If the cookies window is opened User closes it', () => {
@@ -17,7 +17,7 @@ When ('A User clicks the "Integrations" submenu item in the "Company" menu item'
 });
 
 And ('A User checks the "Integrations" page is opened', () => {
-    integrationsPage.checkUrlInclude('/integrations');
+    cy.url().should('include', '/integrations');
 });
 
 And ('A User clicks the "Explore Our Marketplace" button', () => {
@@ -25,5 +25,5 @@ And ('A User clicks the "Explore Our Marketplace" button', () => {
 });
 
 Then ('A User checks the "Marketplace" page is opened', () => {
-    commonMethods.checkUrlInclude('/marketplace.telnyx.com');
+    cy.url().should('include', '/marketplace.telnyx.com');
 });

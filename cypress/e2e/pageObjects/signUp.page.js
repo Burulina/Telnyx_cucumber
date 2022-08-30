@@ -1,28 +1,24 @@
-import { CommonMethods } from "./common.methods";
+const commonMethods = require ('./common.methods');
 
 // Selectors
 const workEmailInput = '#email';
 const termsConditionLink = 'a[href="/terms-and-conditions-of-service"]';
 const sinUpFormHeading = 'h1[class*=Text]';
 
-export class SignUpPage extends CommonMethods {
+class SignUpPage {
 
-    constructor() {
-        super();
+    getWorkEmailInput () {
+        return cy.get(workEmailInput);
     }
 
-    checkSinUpFormHeading (text){
-        super.checkVisibilityContainText(sinUpFormHeading, text);
-    }
-
-    checkEmailInputData (text){
-        super.checkInputdata(workEmailInput, text);
+    getSinUpFormHeading () {
+        return cy.get(sinUpFormHeading);
     }
 
     clickTermsConditionLink() {
-        super.clickElemNewTab(termsConditionLink);
+        commonMethods.clickElemNewTab(termsConditionLink);
     }
 
 }
 
-export const signUpPage = new SignUpPage();
+module.exports = new SignUpPage ();
